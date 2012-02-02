@@ -34,6 +34,9 @@ public class ExampleFrame extends javax.swing.JFrame {
         this.setMinimumSize(new Dimension(700, 700));
 
         // Create an element and define actions on them.
+        // Each needs one instance of an Animation, even if it's the same type.
+        // Animations are easy to code (extending Animation class) but the
+        // basic ones are already provided.
         GridElement elem = new GridElement(Resources.getRobot(Robot.BLUE));
         elem.defineAction("moveRight", new MoveRightAnimation());
         elem.defineAction("moveLeft", new MoveLeftAnimation());
@@ -42,7 +45,7 @@ public class ExampleFrame extends javax.swing.JFrame {
 
         // Add it to the grid in (1,1).
         g.add(elem, new Point(1,1));
-        elem.setPositionOnGrid(new Point(6,6));
+        
         // Create an ActionSequence to execute some actions on the element
         // sequentially, with an initial delay of 500ms.
         ActionSequence actions = new ActionSequence(500);
@@ -74,7 +77,7 @@ public class ExampleFrame extends javax.swing.JFrame {
         actions2.execute(elem2, "moveUp");
         actions2.execute(elem2, "moveUp");
         
-        // Some elements more, this time static and without actions.
+        // Some elements more, this time static; without actions.
         GridElement elem3 = new GridElement(Resources.getBlock(Block.GRAY));
         GridElement elem4 = new GridElement(Resources.getBlock(Block.GRAY));
         g.add(elem3, new Point(2,2));
@@ -84,21 +87,24 @@ public class ExampleFrame extends javax.swing.JFrame {
         // look.
         GridElement elem5 = new GridElement(Resources.getTarget(Target.GRAY));
         GridElement elem6 = new GridElement(Resources.getTarget(Target.GRAY));
-        elem5.defineAction("blink", new BlinkAnimation());
-        elem6.defineAction("blink", new BlinkAnimation());
         g.add(elem5, new Point(1,1));
         g.add(elem6, new Point(4,4));
         
-        // Now, ¿why not make them blink a little? With ActionLoop, you can
-        // make the same that you could with ActionSequence but repeat it "n"
-        // times or indefinitely, if "loops" parameter = 0.
-        ActionLoop actions3 = new ActionLoop(500, 0);
+        // Now, ¿why not make targets blink a little? First we define the
+        // action.
+        elem5.defineAction("blink", new BlinkAnimation());
+        elem6.defineAction("blink", new BlinkAnimation());
+        
+        // With ActionLoop you can make the same that you could with
+        // ActionSequence but repeat it "n" times or indefinitely 
+        // if "repeat" parameter equals 0.
+        ActionLoop actions3 = new ActionLoop(500, 0); // Infinite loop
         actions3.execute(elem5, "blink");
         actions3.loop();
         
         // We use two ActionLoops because we want them to run concurrently and
         // not sequentially
-        ActionLoop actions4 = new ActionLoop(500, 0);
+        ActionLoop actions4 = new ActionLoop(500, 0); //Infinite loop
         actions4.execute(elem6, "blink");
         actions4.loop();
         

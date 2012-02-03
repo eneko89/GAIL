@@ -118,7 +118,7 @@ public class Grid extends JComponent {
         g2.fillRect(0, 0, getWidth(), getHeight());
         g2.setColor(this.getForeground());
         g2.setStroke(new BasicStroke(lineStroke));
-        cellWidth = ((getWidth() + lineStroke) / horizCellNumber)-3;
+        cellWidth = ((getWidth() + lineStroke) / horizCellNumber);
         cellHeight =  ((getHeight() + lineStroke) / vertCellNumber);
         int tempDrawingPos = 0;
         for(int i=0; i < vertCellNumber; i++){
@@ -135,12 +135,12 @@ public class Grid extends JComponent {
     }
 
     private void layComponents() {
-        cellWidth = ((getWidth() + lineStroke) / horizCellNumber) - 3;
+        cellWidth = ((getWidth() + lineStroke) / horizCellNumber);
         cellHeight =  ((getHeight() + lineStroke) / vertCellNumber);
         Component[] components =  this.getComponents();
         for(int i = 0; i < components.length; i++) {
             GridElement elem = (GridElement) components[i];
-            elem.setSize(cellWidth, cellHeight);
+            elem.setSize(cellWidth + 2, cellHeight);
             elem.setLocation((cellWidth * elem.getPositionOnGrid().x),
                              cellHeight * elem.getPositionOnGrid().y);
         }
@@ -149,7 +149,7 @@ public class Grid extends JComponent {
     public void layComponent(GridElement elem) {
         cellWidth = ((getWidth() + lineStroke) / horizCellNumber);
         cellHeight =  ((getHeight() + lineStroke) / vertCellNumber);
-        elem.setSize(cellWidth, cellHeight);
+        elem.setSize(cellWidth + 2, cellHeight);
         elem.setLocation(cellWidth * elem.getPositionOnGrid().x,
                          cellHeight * elem.getPositionOnGrid().y);
     }

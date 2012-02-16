@@ -11,8 +11,8 @@ package gail;
 public class Edge {
 
     /**
-     * Although directed graphs are not still supported, the concept of a
-     * startNode and endNode makes it possible to implement it in the future.
+     * The concept of an start and an end node is used to tell where
+     * the directed edges should start and in which node they should end.
      */
     private Node startNode;
     private Node endNode;
@@ -20,6 +20,14 @@ public class Edge {
     public Edge(Node startNode, Node endNode) {
         this.startNode = startNode;
         this.endNode = endNode;
+    }
+
+    public Node getStartNode() {
+        return startNode;
+    }
+    
+    public Node getEndNode() {
+        return endNode;
     }
     
 }

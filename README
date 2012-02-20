@@ -1,1 +1,3 @@
-See ExampleFrame.java to learn how to use GAIL (It's really easy! :D), and execute GAIL.jar to watch a demo.
+See GraphDemo.java and GridDemo.java to learn how to use GAIL (It's really easy! :D). Both classes can be executed (the have a main() function).
+
+Execute GAIL.jar to watch a demo.

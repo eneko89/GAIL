@@ -7,6 +7,7 @@ package gail;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import javax.swing.JComponent;
 
@@ -19,17 +20,17 @@ public class MathGraph extends JComponent {
     /**
      * List of nodes.
      */
-    private LinkedList<Node> nodes;
+    private LinkedList<Node> nodes = new LinkedList<Node>();
 
     /**
      * List of edges.
      */
-    private LinkedList<Edge> edges;
+    private LinkedList<Edge> edges = new LinkedList<Edge>();
     
     /**
      * List of directed edges.
      */
-    private LinkedList<Edge> directedEdges;
+    private LinkedList<Edge> directedEdges = new LinkedList<Edge>();
 
     /**
      * The transform used to rotate and place the arrowHead properly.
@@ -39,15 +40,21 @@ public class MathGraph extends JComponent {
     /**
      * The triangle shape (three point polygon) to draw an arrowHead.
      */
-    private Polygon arrowHead = new Polygon();
+    private Polygon arrowHead;
+    
+    /**
+     * Size of the arrow.
+     * Should be allways positive.
+     */
+    private int arrowSize = 3;
 
 
     public MathGraph() {
-        initArrowHead();
+        createArrowHead();
     }
 
     public void add(Node node) {
-        add(node);
+        add((Component)node);
     }
     
     public void add(Node node, Point location) {
@@ -68,30 +75,54 @@ public class MathGraph extends JComponent {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-                            RenderingHints.VALUE_RENDER_QUALITY);
+//        g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+//                            RenderingHints.VALUE_RENDER_QUALITY);
         g2.setStroke(new BasicStroke(2.0f,
                             BasicStroke.CAP_ROUND,
                             BasicStroke.JOIN_ROUND));
         for(Edge e : edges) {
-            Node n1 = e.getStartNode();
-            Node n2 = e.getEndNode();
-            g2.drawLine(n1.getX(), n1.getY(), n2.getX(), n2.getY());
+            Node startNode = e.getStartNode();
+            Node endNode = e.getEndNode();
+            Point startPoint = addPoints(startNode.getCenter(),
+                                         startNode.getLocation());
+            Point endPoint = addPoints(endNode.getCenter(),
+                                       endNode.getLocation());
+            g2.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
         }
-        Line2D.Float tempLine = new Line2D.Float();
+        Line2DX tempLine = new Line2DX();
         for(Edge e : directedEdges) {
-            Node start = e.getStartNode();
-            Node end = e.getEndNode();
-            tempLine.setLine(start.getX(), start.getY(), end.getX(), end.getY());
+            Node startNode = e.getStartNode();
+            Node endNode = e.getEndNode();
+            Point startPoint = addPoints(startNode.getCenter(),
+                                         startNode.getLocation());
+            Point endPoint = addPoints(endNode.getCenter(),
+                                       endNode.getLocation());
+            tempLine.setLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+            Point.Float temp = tempLine.getPointAtDistance(
+                                        tempLine.getDistanceTo(
+                                                (Point2D.Float)tempLine.getP2())
+                                                  - endNode.getRadius());
+            tempLine.setLine(startPoint.x, startPoint.y, temp.x, temp.y);
             g2.draw(tempLine);
             drawArrowHead(g2, tempLine);
         }
+        super.paintComponent(g);
+    }
+    
+    private Point addPoints(Point p1, Point p2) {
+        return new Point(p1.x + p2.x, p1.y + p2.y);
+    }
+    
+    public void setArrowHeadSize(int size) {
+        arrowSize = size;
+        createArrowHead();
     }
 
-    private void initArrowHead() {
-        arrowHead.addPoint( 0,5);
-        arrowHead.addPoint( -5, -5);
-        arrowHead.addPoint( 5,-5);
+    private void createArrowHead() {
+        arrowHead = new Polygon();
+        arrowHead.addPoint( 0,0);
+        arrowHead.addPoint( -arrowSize, -arrowSize * 2);
+        arrowHead.addPoint( arrowSize,-arrowSize * 2);
     }
 
     private void drawArrowHead(Graphics2D g2d, Line2D.Float line) {
@@ -102,6 +133,7 @@ public class MathGraph extends JComponent {
         Graphics2D g = (Graphics2D) g2d.create();
         g.setTransform(transform);
         g.fill(arrowHead);
+        g.draw(arrowHead);
     }
     
 }

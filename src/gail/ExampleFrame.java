@@ -41,7 +41,7 @@ public class ExampleFrame extends javax.swing.JFrame {
      */
     public ExampleFrame() {
         initComponents();
-
+        
         // Create an 8x8 grid.
         Grid g = new Grid(8, 8);
         g.setBackground(Color.white);

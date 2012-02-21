@@ -26,6 +26,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Point2D;
 import javax.swing.WindowConstants;
 
 /**
@@ -75,14 +76,23 @@ public class GraphDemo extends javax.swing.JFrame {
         graph.add(e, new Point(150, 50));
         graph.link(c, e);
 
-        // Now we enable dragging for the last node "E"
-        e.addMouseListener(new MouseAdapter() {
+        // Now we enable dragging for the nodes
+        makeDraggable(a);
+        makeDraggable(b);
+        makeDraggable(c);
+        makeDraggable(d);
+        makeDraggable(e);
+
+    }
+
+    private void makeDraggable(Node n) {
+        n.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 dragStart = e.getPoint();
             }
         });
-        e.addMouseMotionListener(new MouseMotionAdapter() {
+        n.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 Component dragTarget = (Component)e.getSource();
@@ -93,7 +103,7 @@ public class GraphDemo extends javax.swing.JFrame {
             }
         });
     }
-
+    
     /**
      * @param args the command line arguments
      */

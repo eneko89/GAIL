@@ -91,8 +91,8 @@ public class MathGraph extends JComponent {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
-//        g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-//                            RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                            RenderingHints.VALUE_RENDER_QUALITY);
         g2.setStroke(new BasicStroke(2.0f,
                             BasicStroke.CAP_ROUND,
                             BasicStroke.JOIN_ROUND));

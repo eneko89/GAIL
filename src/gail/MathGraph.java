@@ -63,7 +63,8 @@ public class MathGraph extends JComponent {
      * Should be allways positive.
      */
     private int arrowSize = 3;
-
+    
+    private float lineStroke = 2f;
 
     public MathGraph() {
         createArrowHead();
@@ -93,7 +94,7 @@ public class MathGraph extends JComponent {
                             RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_RENDERING,
                             RenderingHints.VALUE_RENDER_QUALITY);
-        g2.setStroke(new BasicStroke(2.0f,
+        g2.setStroke(new BasicStroke(lineStroke,
                             BasicStroke.CAP_ROUND,
                             BasicStroke.JOIN_ROUND));
         for(Edge e : edges) {
@@ -132,6 +133,10 @@ public class MathGraph extends JComponent {
     public void setArrowHeadSize(int size) {
         arrowSize = size;
         createArrowHead();
+    }
+    
+    public void setLineStroke(float lineStroke) {
+        this.lineStroke = lineStroke;
     }
 
     private void createArrowHead() {

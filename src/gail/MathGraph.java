@@ -64,6 +64,9 @@ public class MathGraph extends JComponent {
      */
     private int arrowSize = 3;
     
+    /**
+     * Stroke of the graph nodes and edges.
+     */
     private float lineStroke = 2f;
 
     public MathGraph() {

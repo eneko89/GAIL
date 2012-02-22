@@ -41,12 +41,44 @@ public class Line2DX extends Line2D.Float {
     public Line2DX(float x1, float y1, float x2, float y2) {
         super(x1, y1, x2, y2);
     }
-
+    
+    /**
+     * Gets the X coordinate of the line matching the given Y coordinate.
+     * 
+     * Special cases:
+     * 
+     * With horizontal lines, it will return positive or negative infinity
+     * when the given Y is not defined, and NaN if the given Y coordinate is
+     * where the horizontal line is located.
+     * 
+     * With vertical lines it will allways return positive or negative infinity.
+     * 
+     * In general is NOT recommneded to use this method when the line is
+     * verticall or horizontal.
+     * 
+     * @param y the Y coordinate
+     * @return the X coordinate matching Y coordinate
+     */
     public float getX(float y) {
         float slope = getSlope();
         return (y - y1 + (slope * x1)) / slope;
     }
-
+    
+    /**
+     * Gets the Y coordinate of the line matching the given X coordinate.
+     * 
+     * With horizontal lines it will return the Y parameter where the horizontal
+     * line is located
+     
+     * With vertical lines, the result is hardly predictable; it could be NaN,
+     * negative infinity or positive infinity.
+     * 
+     * In general is NOT recommneded to use this method when the line is
+     * verticall or horizontal.
+     * 
+     * @param x
+     * @return 
+     */
     public float getY(float x) {
         float slope = getSlope();
         return (slope * x) - (slope * x1) + y1;
@@ -56,28 +88,34 @@ public class Line2DX extends Line2D.Float {
         return (y2 - y1) / (x2 - x1);
     }
     
-    public Line2DX getPerpendicularAt(Point2D.Float p) {
+    public Line2DX getPerpendUpwardsFrom(Point2D.Float p) {
         double invSlope= -Math.pow(getSlope(), -1);
         float x = 0;
         float y = (float) (invSlope * (x - p.x) + p.y);
         return new Line2DX((float)p.getX(), (float)p.getY(), x, y);
     }
+    
+    public Line2DX getPerpendDownwardsFrom(Point2D.Float p) {
+        double invSlope= -Math.pow(getSlope(), -1);
+        float x = 0;
+        float y = (float) (invSlope * (x - p.x) + p.y);
+        return new Line2DX(p.x, p.y, x, y);
+    }
 
     public Point2D.Float getPointAtDistance(float distance) {
-        float slope = getSlope();
-        if (slope == 0) {
+        if (isHorizontal()) {
             if (x1 > x2)
                 distance = -distance;
             return new Point2D.Float(x1 + distance, y1);
         }
-        if (java.lang.Float.isInfinite(slope)) {
+        if (isVertical()) {
             if (y1 > y2)
                 distance = -distance;
             return new Point2D.Float(x1, y1 + distance);
         }
         if (x1 > x2)
             distance = -distance;
-        float angle = (float) Math.atan(slope);
+        float angle = (float) Math.atan(getSlope());
         float y = (float) (Math.sin(angle) * distance) + y1;
         float x = getX(y);
         return new Point.Float(x, y);
@@ -92,6 +130,20 @@ public class Line2DX extends Line2D.Float {
      */
     public float getDistanceTo(Point2D.Float point) {
         return (float) Math.sqrt(powOf2(point.x - x1) + powOf2(point.y - y1));
+    }
+
+    /**
+     * @return true if this line is horizontal (slope = 0), false if not
+     */
+    public boolean isHorizontal() {
+        return y1 == y2;
+    }
+    
+    /**
+     * @return true if this line is vertical (slope = infinity), false if not
+     */
+    public boolean isVertical() {
+        return x1 == x2;
     }
     
     /**

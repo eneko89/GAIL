@@ -158,6 +158,7 @@ public class MathGraph extends JComponent {
         g.setTransform(transform);
         g.fill(arrowHead);
         g.draw(arrowHead);
+        g.dispose();
     }
     
 }

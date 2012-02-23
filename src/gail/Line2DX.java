@@ -87,7 +87,7 @@ public class Line2DX extends Line2D.Float {
     public float getSlope() {
         return (y2 - y1) / (x2 - x1);
     }
-    
+
     public Line2DX getPerpendUpwardsFrom(Point2D.Float p) {
         double invSlope= -Math.pow(getSlope(), -1);
         float x = 0;
@@ -102,6 +102,13 @@ public class Line2DX extends Line2D.Float {
         return new Line2DX(p.x, p.y, x, y);
     }
 
+    /**
+     * Gets the point on this segment at the given distance from the start
+     * point (P1).
+     * 
+     * @param distance distance from p1
+     * @return the point at the distance as parameter
+     */
     public Point2D.Float getPointAtDistance(float distance) {
         if (isHorizontal()) {
             if (x1 > x2)

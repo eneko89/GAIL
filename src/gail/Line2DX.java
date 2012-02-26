@@ -30,7 +30,7 @@ import java.awt.geom.Point2D;
  */
 public class Line2DX extends Line2D.Float {
 
-    Line2DX() {
+    public Line2DX() {
         super();
     }
 
@@ -45,16 +45,13 @@ public class Line2DX extends Line2D.Float {
     /**
      * Gets the X coordinate of the line matching the given Y coordinate.
      * 
-     * Special cases:
+     * It shlouldn't be used when the line is vertical or horizontal.
      * 
      * With horizontal lines, it will return positive or negative infinity
      * when the given Y is not defined, and NaN if the given Y coordinate is
      * where the horizontal line is located.
      * 
      * With vertical lines it will allways return positive or negative infinity.
-     * 
-     * In general is NOT recommneded to use this method when the line is
-     * verticall or horizontal.
      * 
      * @param y the Y coordinate
      * @return the X coordinate matching Y coordinate
@@ -67,14 +64,13 @@ public class Line2DX extends Line2D.Float {
     /**
      * Gets the Y coordinate of the line matching the given X coordinate.
      * 
+     * It shlouldn't be used when the line is vertical or horizontal.
+     * 
      * With horizontal lines it will return the Y parameter where the horizontal
      * line is located
-     
+     *
      * With vertical lines, the result is hardly predictable; it could be NaN,
      * negative infinity or positive infinity.
-     * 
-     * In general is NOT recommneded to use this method when the line is
-     * verticall or horizontal.
      * 
      * @param x
      * @return 
@@ -87,19 +83,57 @@ public class Line2DX extends Line2D.Float {
     public float getSlope() {
         return (y2 - y1) / (x2 - x1);
     }
+    
+    public Point2D.Float getMidPoint() {
+        return new Point2D.Float((x1+x2)/2, (y1+y2)/2);
+    }
 
-    public Line2DX getPerpendUpwardsFrom(Point2D.Float p) {
-        double invSlope= -Math.pow(getSlope(), -1);
-        float x = 0;
-        float y = (float) (invSlope * (x - p.x) + p.y);
-        return new Line2DX((float)p.getX(), (float)p.getY(), x, y);
+    public Line2DX getPerpendUpwardsFrom(Point2D.Float p, float length) {
+        float invSlope= (float) -Math.pow(getSlope(), -1);
+        Line2DX perpendLine = null;
+        if (java.lang.Float.isInfinite(invSlope)) {
+            perpendLine = new Line2DX(p.x, p.y, p.x,
+                                      x1 > x2 ? p.y + 10 : p.y - 10);
+        } else if (invSlope < 0) {
+            float x = x1 > x2 ? p.x - 10 : p.x + 10;
+            float y = (float) (invSlope * (x - p.x) + p.y);
+            perpendLine = new Line2DX(p.x, p.y, x, y);
+        } else if (invSlope > 0) {
+            float x = x1 > x2 ? p.x + 10 : p.x - 10;
+            float y = (float) (invSlope * (x - p.x) + p.y);
+            perpendLine = new Line2DX(p.x, p.y, x, y);
+        } else if (invSlope == 0){
+            perpendLine = new Line2DX(p.x, p.y,
+                                      y1 > y2 ? p.x - 10 : p.x + 10,
+                                                                p.y);
+        }
+        perpendLine.setLine(perpendLine.getP1(),
+                            perpendLine.getPointAtDistance(length));
+        return perpendLine;
     }
     
-    public Line2DX getPerpendDownwardsFrom(Point2D.Float p) {
-        double invSlope= -Math.pow(getSlope(), -1);
-        float x = 0;
-        float y = (float) (invSlope * (x - p.x) + p.y);
-        return new Line2DX(p.x, p.y, x, y);
+    public Line2DX getPerpendDownwardsFrom(Point2D.Float p, float length) {
+        float invSlope= (float) -Math.pow(getSlope(), -1);
+        Line2DX perpendLine = null;
+        if (java.lang.Float.isInfinite(invSlope)) {
+            perpendLine = new Line2DX(p.x, p.y, p.x,
+                                      x1 > x2 ? p.y - 10 : p.y + 10);
+        } else if (invSlope < 0) {
+            float x = x1 > x2 ? p.x + 10 : p.x - 10;
+            float y = (float) (invSlope * (x - p.x) + p.y);
+            perpendLine = new Line2DX(p.x, p.y, x, y);
+        } else if (invSlope > 0) {
+            float x = x1 > x2 ? p.x - 10 : p.x + 10;
+            float y = (float) (invSlope * (x - p.x) + p.y);
+            perpendLine = new Line2DX(p.x, p.y, x, y);
+        } else if (invSlope == 0){
+            perpendLine = new Line2DX(p.x, p.y,
+                                      y1 > y2 ? p.x + 10 : p.x - 10,
+                                                                p.y);
+        }
+        perpendLine.setLine(perpendLine.getP1(),
+                            perpendLine.getPointAtDistance(length));
+        return perpendLine;
     }
 
     /**

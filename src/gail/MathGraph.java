@@ -125,7 +125,7 @@ public class MathGraph extends JComponent {
             tempLine.setLine(startPoint.x, startPoint.y, temp.x, temp.y);
             g2.draw(tempLine);
             drawArrowHead(g2, tempLine);
-        }
+        }      
         super.paintComponent(g);
     }
     

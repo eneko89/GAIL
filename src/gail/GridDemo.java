@@ -83,12 +83,14 @@ public class GridDemo extends javax.swing.JFrame {
         // Create and add another element to the grid, and
         // animate it with another ActionSequence, so it will run
         // concurrently with the previously created ActionSequence.
+        // We will also make this animation slower, providing custom durations
+        // for each animation (the default duration for move animations is 600ms).
         GridElement elem2 = new GridElement(Resources.getRobot(Robot.RED));
         g.add(elem2, new Point(4,4));
-        elem2.defineAction("moveRight", new MoveRightAnimation());
-        elem2.defineAction("moveLeft", new MoveLeftAnimation());
-        elem2.defineAction("moveDown", new MoveDownAnimation());
-        elem2.defineAction("moveUp", new MoveUpAnimation());
+        elem2.defineAction("moveRight", new MoveRightAnimation(1200));
+        elem2.defineAction("moveLeft", new MoveLeftAnimation(1200));
+        elem2.defineAction("moveDown", new MoveDownAnimation(1200));
+        elem2.defineAction("moveUp", new MoveUpAnimation(1200));
         ActionSequence actions2 = new ActionSequence(500);
         actions2.execute(elem2, "moveRight");
         actions2.execute(elem2, "moveRight");

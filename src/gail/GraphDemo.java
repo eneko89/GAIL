@@ -69,6 +69,8 @@ public class GraphDemo extends javax.swing.JFrame {
 
         // This is a regular link (is not directed, it hasn't got an arrow)
         graph.link(b, c);
+        
+        // More nodes and edges
         graph.directedLink(c, a);
         Node d = new Node(50, "D");
         graph.add(d, new Point(80, 170));
@@ -84,7 +86,11 @@ public class GraphDemo extends javax.swing.JFrame {
         makeDraggable(c);
         makeDraggable(d);
         makeDraggable(e);
-
+        
+        /* Note that seudographs are not already supported (that is, two
+         * nodes can only be linked with an unique edge and sef linking is
+         * not supported).
+         */
     }
 
     private void makeDraggable(Node n) {

@@ -34,11 +34,29 @@ import org.jdesktop.core.animation.timing.interpolators.AccelerationInterpolator
  */
 public class BlinkAnimation extends Animation {
 
+    /**
+     * Default constructor.
+     * 
+     * It will use a 1500ms duration for the animation.
+     */
+    public BlinkAnimation() {
+        this.duration = 1500;
+    }
+    
+    /**
+     * Constructor with custom animation duration.
+     * 
+     * @param duration the duration of the animation in milliseconds
+     */
+    public BlinkAnimation(int duration) {
+        this.duration = duration;
+    }
+    
     @Override
     public Point animate(final GridElement ge) {
                 animator = new Animator.Builder(timingSource)
                         .setInterpolator(new AccelerationInterpolator(0.2, 0.1))
-                        .setDuration(1500, TimeUnit.MILLISECONDS)
+                        .setDuration(duration, TimeUnit.MILLISECONDS)
                         .build();
         TimingTarget setter = PropertySetter.getTarget(ge, "opacity",
                                                        1f, 0.6f, 1f);

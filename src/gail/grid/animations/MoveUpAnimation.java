@@ -34,12 +34,30 @@ import org.jdesktop.core.animation.timing.interpolators.AccelerationInterpolator
  */
 public class MoveUpAnimation extends Animation {
 
+    /**
+     * Default constructor.
+     * 
+     * It will use a 600ms duration for the animation.
+     */
+    public MoveUpAnimation() {
+        this.duration = 600;
+    }
+    
+    /**
+     * Constructor with custom animation duration.
+     * 
+     * @param duration the duration of the animation in milliseconds
+     */
+    public MoveUpAnimation(int duration) {
+        this.duration = duration;
+    }
+    
     @Override
     public Point animate(GridElement ge) {
         // Create
         animator = new Animator.Builder(timingSource)
                         .setInterpolator(new AccelerationInterpolator(0.1, 0.8))
-                        .setDuration(600, TimeUnit.MILLISECONDS)
+                        .setDuration(duration, TimeUnit.MILLISECONDS)
                         .build();
         Point finalLocation = new Point(ge.getX(),
                                         ge.getY() - ge.getGrid().getCellHeight());

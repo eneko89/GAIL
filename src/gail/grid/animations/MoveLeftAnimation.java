@@ -34,11 +34,29 @@ import org.jdesktop.core.animation.timing.interpolators.AccelerationInterpolator
  */
 public class MoveLeftAnimation extends Animation {
 
+    /**
+     * Default constructor.
+     * 
+     * It will use a 600ms duration for the animation.
+     */
+    public MoveLeftAnimation() {
+        this.duration = 600;
+    }
+    
+    /**
+     * Constructor with custom animation duration.
+     * 
+     * @param duration the duration of the animation in milliseconds
+     */
+    public MoveLeftAnimation(int duration) {
+        this.duration = duration;
+    }
+    
     @Override
     public Point animate(GridElement ge) {
         animator = new Animator.Builder(timingSource)
                         .setInterpolator(new AccelerationInterpolator(0.1, 0.8))
-                        .setDuration(600, TimeUnit.MILLISECONDS)
+                        .setDuration(duration, TimeUnit.MILLISECONDS)
                         .build();
         Point finalLocation = new Point(ge.getX() - ge.getGrid().getCellWidth(),
                                                                      ge.getY());

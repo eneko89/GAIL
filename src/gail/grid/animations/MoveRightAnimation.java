@@ -18,9 +18,9 @@
  *
  */
 
-package gail.animations;
+package gail.grid.animations;
 
-import gail.GridElement;
+import gail.grid.GridElement;
 import java.awt.Point;
 import java.util.concurrent.TimeUnit;
 import org.jdesktop.core.animation.timing.Animator;
@@ -32,7 +32,7 @@ import org.jdesktop.core.animation.timing.interpolators.AccelerationInterpolator
  *
  * @author eneko
  */
-public class MoveDownAnimation extends Animation {
+public class MoveRightAnimation extends Animation {
 
     @Override
     public Point animate(GridElement ge) {
@@ -41,13 +41,13 @@ public class MoveDownAnimation extends Animation {
                         .setInterpolator(new AccelerationInterpolator(0.1, 0.8))
                         .setDuration(600, TimeUnit.MILLISECONDS)
                         .build();
-        Point finalLocation = new Point(ge.getX(),
-                                        ge.getY() + ge.getGrid().getCellHeight());
+        Point finalLocation = new Point(ge.getX() + ge.getGrid().getCellWidth(),
+                                                                     ge.getY());
         TimingTarget setter = PropertySetter.getTarget(ge, "location",
                                              ge.getLocation(), finalLocation);
         animator.addTarget(setter);
         animator.start();
-        return new Point(ge.getPositionOnGrid().x, ge.getPositionOnGrid().y + 1);
+        return new Point(ge.getPositionOnGrid().x + 1, ge.getPositionOnGrid().y);
     }
-
+    
 }

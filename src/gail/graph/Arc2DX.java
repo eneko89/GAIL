@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gail;
+package gail.graph;
 
 import java.awt.geom.Arc2D;
 import java.awt.geom.Point2D;

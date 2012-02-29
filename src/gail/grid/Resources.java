@@ -18,7 +18,7 @@
  *
  */
 
-package gail;
+package gail.grid;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -28,7 +28,8 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- *
+ * Resource loader to load image resources in gail.grid.resources
+ * 
  * @author eneko
  */
 public class Resources {
@@ -58,19 +59,19 @@ public class Resources {
     }
 
     public static BufferedImage getRobot(Robot robot) {
-        return Resources.loadImageResource("/gail/resources/"
+        return Resources.loadImageResource("/gail/grid/resources/"
                                             + robot.name().toLowerCase()
                                             + "robot.png");
     }
 
     public static BufferedImage getTarget(Target target) {
-        return Resources.loadImageResource("/gail/resources/"
+        return Resources.loadImageResource("/gail/grid/resources/"
                                             + target.name().toLowerCase()
                                             + "target.png");
     }
 
     public static BufferedImage getBlock(Block block) {
-        return Resources.loadImageResource("/gail/resources/"
+        return Resources.loadImageResource("/gail/grid/resources/"
                                             + block.name().toLowerCase()
                                             + "block.png");
     }

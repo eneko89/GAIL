@@ -18,9 +18,9 @@
  *
  */
 
-package gail.animations;
+package gail.grid.animations;
 
-import gail.GridElement;
+import gail.grid.GridElement;
 import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;

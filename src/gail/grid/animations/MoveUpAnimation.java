@@ -18,9 +18,9 @@
  *
  */
 
-package gail.animations;
+package gail.grid.animations;
 
-import gail.GridElement;
+import gail.grid.GridElement;
 import java.awt.Point;
 import java.util.concurrent.TimeUnit;
 import org.jdesktop.core.animation.timing.Animator;
@@ -32,19 +32,22 @@ import org.jdesktop.core.animation.timing.interpolators.AccelerationInterpolator
  *
  * @author eneko
  */
-public class BlinkAnimation extends Animation {
+public class MoveUpAnimation extends Animation {
 
     @Override
-    public Point animate(final GridElement ge) {
-                animator = new Animator.Builder(timingSource)
-                        .setInterpolator(new AccelerationInterpolator(0.2, 0.1))
-                        .setDuration(1500, TimeUnit.MILLISECONDS)
+    public Point animate(GridElement ge) {
+        // Create
+        animator = new Animator.Builder(timingSource)
+                        .setInterpolator(new AccelerationInterpolator(0.1, 0.8))
+                        .setDuration(600, TimeUnit.MILLISECONDS)
                         .build();
-        TimingTarget setter = PropertySetter.getTarget(ge, "opacity",
-                                                       1f, 0.6f, 1f);
+        Point finalLocation = new Point(ge.getX(),
+                                        ge.getY() - ge.getGrid().getCellHeight());
+        TimingTarget setter = PropertySetter.getTarget(ge, "location",
+                                             ge.getLocation(), finalLocation);
         animator.addTarget(setter);
         animator.start();
-        return ge.getPositionOnGrid();
+        return new Point(ge.getPositionOnGrid().x, ge.getPositionOnGrid().y - 1);
     }
-    
+
 }

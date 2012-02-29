@@ -18,9 +18,9 @@
  *
  */
 
-package gail;
+package gail.grid;
 
-import gail.animations.Animation;
+import gail.grid.animations.Animation;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Collection;
@@ -199,6 +199,10 @@ public class GridElement extends JComponent {
                                 RenderingHints.VALUE_RENDER_QUALITY);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
                                                        opacity));
+            if (isOpaque()) {
+                g2.setColor(getBackground());
+                g2.fillRect(2, 2, getWidth()-5, getHeight()-4);
+            }
             int drawPosx = (this.getWidth() - scaledImage.getWidth()) / 2;
             int drawPosy = (this.getHeight() - scaledImage.getHeight()) / 2;
             g2.drawImage(scaledImage, drawPosx, drawPosy, null);

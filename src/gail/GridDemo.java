@@ -20,16 +20,15 @@
 
 package gail;
 
-import gail.Resources.Block;
-import gail.Resources.Robot;
-import gail.Resources.Target;
-import gail.animations.BlinkAnimation;
-import gail.animations.MoveDownAnimation;
-import gail.animations.MoveLeftAnimation;
-import gail.animations.MoveRightAnimation;
-import gail.animations.MoveUpAnimation;
-import gail.executors.ActionLoop;
-import gail.executors.ActionSequence;
+import gail.grid.Grid;
+import gail.grid.GridElement;
+import gail.grid.Resources;
+import gail.grid.Resources.Block;
+import gail.grid.Resources.Robot;
+import gail.grid.Resources.Target;
+import gail.grid.animations.*;
+import gail.grid.executors.ActionLoop;
+import gail.grid.executors.ActionSequence;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;

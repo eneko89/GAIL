@@ -22,6 +22,7 @@ package gail;
 
 import gail.grid.Grid;
 import gail.grid.GridElement;
+import gail.grid.LabeledGridElement;
 import gail.grid.Resources;
 import gail.grid.Resources.Block;
 import gail.grid.Resources.Robot;
@@ -87,10 +88,10 @@ public class GridDemo extends javax.swing.JFrame {
         // for each animation (the default duration for move animations is 600ms).
         GridElement elem2 = new GridElement(Resources.getRobot(Robot.RED));
         g.add(elem2, new Point(4,4));
-        elem2.defineAction("moveRight", new MoveRightAnimation(1200));
-        elem2.defineAction("moveLeft", new MoveLeftAnimation(1200));
-        elem2.defineAction("moveDown", new MoveDownAnimation(1200));
-        elem2.defineAction("moveUp", new MoveUpAnimation(1200));
+        elem2.defineAction("moveRight", new MoveRightAnimation(1000));
+        elem2.defineAction("moveLeft", new MoveLeftAnimation(1000));
+        elem2.defineAction("moveDown", new MoveDownAnimation(1000));
+        elem2.defineAction("moveUp", new MoveUpAnimation(1000));
         ActionSequence actions2 = new ActionSequence(500);
         actions2.execute(elem2, "moveRight");
         actions2.execute(elem2, "moveRight");
@@ -131,6 +132,26 @@ public class GridDemo extends javax.swing.JFrame {
         ActionLoop actions4 = new ActionLoop(500, 0); //Infinite loop
         actions4.execute(elem6, "blink");
         actions4.loop();
+        
+        // Another element, this time labeled and opaque (with background color)
+        LabeledGridElement elem7 = new LabeledGridElement("7");
+        elem7.defineAction("moveRight", new MoveRightAnimation(300));
+        elem7.defineAction("moveLeft", new MoveLeftAnimation(300));
+        elem7.setOpaque(true);
+        elem7.setBackground(new Color(0x31B404));
+        elem7.setLabelColor(Color.WHITE);
+        elem7.setFontSize(40f);
+        g.add(elem7, new Point(0, 7));
+        
+        // And another ActionLoop to make a component indefinitely move from
+        // (0, 7) to (7,7) and viceversa.
+        ActionLoop actions5 = new ActionLoop(500, 0); //Infinite loop
+        for(int i=0; i <= 6; i++)
+            actions5.execute(elem7, "moveRight");
+        for(int i=0; i <= 6; i++)
+            actions5.execute(elem7, "moveLeft");
+        actions5.loop();
+        
     }
 
     /**

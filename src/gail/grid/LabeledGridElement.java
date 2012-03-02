@@ -4,10 +4,7 @@
  */
 package gail.grid;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
@@ -41,6 +38,10 @@ public class LabeledGridElement extends GridElement {
     
     public void setFontSize(float f) {
         label.setFont(label.getFont().deriveFont(f));
+    }
+    
+    public void setLabelColor(Color color) {
+        label.setForeground(color);
     }
     
     private void addLabel(String string) {

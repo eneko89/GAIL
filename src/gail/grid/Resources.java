@@ -75,8 +75,17 @@ public class Resources {
                                             + block.name().toLowerCase()
                                             + "block.png");
     }
-
-    private static BufferedImage loadImageResource(String resourceLocation) {
+    
+    /**
+     * Loads image resources inside the .jar packege.
+     * 
+     * For example, if "image.jpg" is into the foo.bar package, the string to 
+     * load it would be "/foo/bar/image.jpg".
+     * 
+     * @param resourceLocation
+     * @return 
+     */
+    public static BufferedImage loadImageResource(String resourceLocation) {
         URL url = Resources.class.getResource(resourceLocation);
         BufferedImage img = null;
         try {

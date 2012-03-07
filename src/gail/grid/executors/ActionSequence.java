@@ -18,10 +18,10 @@
  *
  */
 
-package gail.executors;
+package gail.grid.executors;
 
-import gail.animations.Animation;
-import gail.GridElement;
+import gail.grid.animations.Animation;
+import gail.grid.GridElement;
 import java.awt.Point;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

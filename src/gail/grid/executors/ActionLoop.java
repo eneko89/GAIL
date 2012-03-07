@@ -18,10 +18,10 @@
  *
  */
 
-package gail.executors;
+package gail.grid.executors;
 
-import gail.GridElement;
-import gail.animations.Animation;
+import gail.grid.GridElement;
+import gail.grid.animations.Animation;
 import java.awt.Point;
 import java.util.Iterator;
 import java.util.LinkedList;

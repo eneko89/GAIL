@@ -18,7 +18,7 @@
  *
  */
 
-package gail;
+package gail.graph;
 
 import java.awt.Point;
 import java.awt.geom.Line2D;

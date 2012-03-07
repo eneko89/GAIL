@@ -18,7 +18,7 @@
  *
  */
 
-package gail;
+package gail.graph;
 
 /**
  *

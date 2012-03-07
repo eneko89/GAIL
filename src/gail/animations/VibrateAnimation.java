@@ -20,7 +20,8 @@
 
 package gail.animations;
 
-import gail.GridElement;
+import gail.grid.GridElement;
+import gail.grid.animations.Animation;
 import java.awt.Point;
 import java.util.concurrent.TimeUnit;
 import org.jdesktop.core.animation.timing.Animator;

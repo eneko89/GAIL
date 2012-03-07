@@ -18,7 +18,7 @@
  *
  */
 
-package gail;
+package gail.graph;
 
 import java.awt.*;
 import javax.swing.JComponent;

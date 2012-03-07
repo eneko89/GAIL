@@ -20,16 +20,16 @@
 
 package gail;
 
-import gail.Resources.Block;
-import gail.Resources.Robot;
-import gail.Resources.Target;
-import gail.animations.BlinkAnimation;
-import gail.animations.MoveDownAnimation;
-import gail.animations.MoveLeftAnimation;
-import gail.animations.MoveRightAnimation;
-import gail.animations.MoveUpAnimation;
-import gail.executors.ActionLoop;
-import gail.executors.ActionSequence;
+import gail.grid.Grid;
+import gail.grid.GridElement;
+import gail.grid.LabeledGridElement;
+import gail.grid.Resources;
+import gail.grid.Resources.Block;
+import gail.grid.Resources.Robot;
+import gail.grid.Resources.Target;
+import gail.grid.animations.*;
+import gail.grid.executors.ActionLoop;
+import gail.grid.executors.ActionSequence;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -84,12 +84,14 @@ public class GridDemo extends javax.swing.JFrame {
         // Create and add another element to the grid, and
         // animate it with another ActionSequence, so it will run
         // concurrently with the previously created ActionSequence.
+        // We will also make this animation slower, providing custom durations
+        // for each animation (the default duration for move animations is 600ms).
         GridElement elem2 = new GridElement(Resources.getRobot(Robot.RED));
         g.add(elem2, new Point(4,4));
-        elem2.defineAction("moveRight", new MoveRightAnimation());
-        elem2.defineAction("moveLeft", new MoveLeftAnimation());
-        elem2.defineAction("moveDown", new MoveDownAnimation());
-        elem2.defineAction("moveUp", new MoveUpAnimation());
+        elem2.defineAction("moveRight", new MoveRightAnimation(1000));
+        elem2.defineAction("moveLeft", new MoveLeftAnimation(1000));
+        elem2.defineAction("moveDown", new MoveDownAnimation(1000));
+        elem2.defineAction("moveUp", new MoveUpAnimation(1000));
         ActionSequence actions2 = new ActionSequence(500);
         actions2.execute(elem2, "moveRight");
         actions2.execute(elem2, "moveRight");
@@ -130,6 +132,26 @@ public class GridDemo extends javax.swing.JFrame {
         ActionLoop actions4 = new ActionLoop(500, 0); //Infinite loop
         actions4.execute(elem6, "blink");
         actions4.loop();
+        
+        // Another element, this time labeled and opaque (with background color)
+        LabeledGridElement elem7 = new LabeledGridElement("7");
+        elem7.defineAction("moveRight", new MoveRightAnimation(300));
+        elem7.defineAction("moveLeft", new MoveLeftAnimation(300));
+        elem7.setOpaque(true);
+        elem7.setBackground(new Color(0x31B404));
+        elem7.setLabelColor(Color.WHITE);
+        elem7.setFontSize(40f);
+        g.add(elem7, new Point(0, 7));
+        
+        // And another ActionLoop to make a component indefinitely move from
+        // (0, 7) to (7,7) and viceversa.
+        ActionLoop actions5 = new ActionLoop(500, 0); //Infinite loop
+        for(int i=0; i <= 6; i++)
+            actions5.execute(elem7, "moveRight");
+        for(int i=0; i <= 6; i++)
+            actions5.execute(elem7, "moveLeft");
+        actions5.loop();
+        
     }
 
     /**

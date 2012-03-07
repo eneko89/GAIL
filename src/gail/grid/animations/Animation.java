@@ -18,9 +18,9 @@
  *
  */
 
-package gail.animations;
+package gail.grid.animations;
 
-import gail.GridElement;
+import gail.grid.GridElement;
 import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +34,9 @@ import org.jdesktop.swing.animation.timing.sources.SwingTimerTimingSource;
 public abstract class Animation {
 
     protected Animator animator = null;
+    
+    /** Duration of the animation in milliseconds */
+    protected int duration;
 
     /** Timing source of the animations */
     protected static final SwingTimerTimingSource timingSource =
@@ -83,10 +86,12 @@ public abstract class Animation {
     /**
      * Create a new animator and start it.
      * 
-     * Should use provided timingSource and return inmediately.
+     * Should respect duration, use the provided timingSource and return
+     * inmediately.
      * 
      * @param ge the animation target
-     * @return the final position of the element on the grid
+     * @return the final position of the element on the grid or null if you want
+     * the element to be removed from the grid when the animation ends
      */
     public abstract Point animate(GridElement ge);
 

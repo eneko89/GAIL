@@ -18,7 +18,7 @@
  *
  */
 
-package gail;
+package gail.grid;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;

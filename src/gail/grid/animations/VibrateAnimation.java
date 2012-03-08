@@ -18,7 +18,7 @@
  *
  */
 
-package gail.animations;
+package gail.grid.animations;
 
 import gail.grid.GridElement;
 import gail.grid.animations.Animation;

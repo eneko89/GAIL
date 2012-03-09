@@ -67,17 +67,13 @@ public class ActionLoop {
         this.iterations = repeat;
         this.initialDelay = initialDelay;
     }
-    /**
-     * Sets the number of times the actions will be executed.
-     * 
-     * @param repeat 
-     */
-    public void setRepeat(int repeat) {
-        this.iterations = repeat;
+
+    public void setInitialDelay(int initialDelay) {
+        this.initialDelay = initialDelay;
     }
     
     /**
-     * Instantly execute an action on the GridElement passed as parameter.
+     * Execute an action on the GridElement passed as parameter.
      * 
      * The GridElement must be attached (added) to a Grid.
      * 

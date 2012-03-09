@@ -20,8 +20,8 @@
 
 package gail.grid.executors;
 
-import gail.grid.animations.Animation;
 import gail.grid.GridElement;
+import gail.grid.animations.Animation;
 import java.awt.Point;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -77,6 +77,51 @@ public class ActionSequence {
                     targetElem.getGrid().remove(targetElem);
             }
         });
+    }
+
+    /**
+     * Concurrently execute this actions into this sequence.
+     * 
+     * The first action parameter should be the one whose animation takes most
+     * time, because it will be the one for which this sequence will wait until
+     * it ends to continue.
+     * 
+     * The GridElement must be attached (added) to a Grid.
+     * 
+     * @param targetElem
+     * @param actionName 
+     */
+    public void executeConcurrent(Action... actions) {
+        execute(actions[0].gridElement, actions[0].actionName);
+        for(int i = 1; i < actions.length; i++) {
+            final GridElement targetElem = actions[i].gridElement;
+            final String actionName = actions[i].actionName;
+            Runnable runnableAction = new Runnable() {
+                public void run() {
+                    Animation actionAnimation = targetElem
+                                                .getActionAnimation(actionName);
+                    Point finalPosition = actionAnimation.animate(targetElem);
+                    if (finalPosition != null)
+                        targetElem.setPositionOnGrid(finalPosition);
+                    actionAnimation.await();
+                    if (finalPosition == null)
+                        targetElem.getGrid().remove(targetElem);
+                }
+            };
+            new Thread(runnableAction).start();
+        }
+    }
+    
+    public class Action {
+
+        GridElement gridElement;
+        String actionName;
+
+        public Action(GridElement gridElement, String actionName) {
+            this.gridElement = gridElement;
+            this.actionName = actionName;
+        }
+        
     }
     
 }

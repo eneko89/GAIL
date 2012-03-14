@@ -54,7 +54,6 @@ public class MoveUpAnimation extends Animation {
     
     @Override
     public Point animate(GridElement ge) {
-        // Create
         animator = new Animator.Builder(timingSource)
                         .setInterpolator(new AccelerationInterpolator(0.1, 0.8))
                         .setDuration(duration, TimeUnit.MILLISECONDS)

@@ -38,12 +38,12 @@ public class VibrateAnimation extends Animation {
     @Override
     public Point animate(GridElement ge) {
         animator = new Animator.Builder(timingSource)
-                        .setInterpolator(new AccelerationInterpolator(0.1, 0.8))
+                        .setInterpolator(new AccelerationInterpolator(0.2, 0.7))
                         .setDuration(100, TimeUnit.MILLISECONDS)
                         .setRepeatCount(4)
                         .setEndBehavior(Animator.EndBehavior.RESET)
                         .build();
-        Point p1 = new Point(ge.getX() - 2, ge.getY() - 2);
+        Point p1 = new Point(ge.getX() - 4, ge.getY() - 4);
         TimingTarget setter = PropertySetter.getTarget(ge, "location",
                                                        ge.getLocation(), p1);
         animator.addTarget(setter);

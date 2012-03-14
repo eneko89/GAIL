@@ -54,10 +54,10 @@ public class BlinkAnimation extends Animation {
     
     @Override
     public Point animate(final GridElement ge) {
-                animator = new Animator.Builder(timingSource)
-                        .setInterpolator(new AccelerationInterpolator(0.2, 0.1))
-                        .setDuration(duration, TimeUnit.MILLISECONDS)
-                        .build();
+        animator = new Animator.Builder(timingSource)
+                .setInterpolator(new AccelerationInterpolator(0.2, 0.1))
+                .setDuration(duration, TimeUnit.MILLISECONDS)
+                .build();
         TimingTarget setter = PropertySetter.getTarget(ge, "opacity",
                                                        1f, 0.6f, 1f);
         animator.addTarget(setter);

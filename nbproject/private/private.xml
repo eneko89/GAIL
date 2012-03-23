@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/Resources.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/animations/Animation.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/animations/BlinkAnimation.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/animations/MoveDownAnimation.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/animations/MoveLeftAnimation.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/animations/MoveRightAnimation.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/animations/MoveUpAnimation.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/GridDemo.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/GraphDemo.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/GridElement.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/Grid.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/LabeledGridElement.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/executors/ActionSequence.java</file>
-        <file>file:/home/eneko/Escritorio/GAIL/GAIL/src/gail/grid/executors/ActionLoop.java</file>
-    </open-files>
 </project-private>

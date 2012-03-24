@@ -23,6 +23,7 @@ package gail.grid;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.LinkedList;
 import javax.swing.JComponent;
 
 /**
@@ -31,11 +32,19 @@ import javax.swing.JComponent;
  */
 public class Grid extends JComponent {
     
+    public enum StrokeLocation {
+        LEFT,
+        RIGHT,
+        TOP,
+        BOTTOM
+    }
+    
     private int horizCellNumber;
     private int vertCellNumber;
     private int cellWidth;
     private int cellHeight;
     private int lineStroke = 2;
+    private LinkedList<OverlayStroke> overlayStrokes;
     
     /**
      * Create a 2D grid with the size passed as parameters.
@@ -56,6 +65,7 @@ public class Grid extends JComponent {
             }
 
         });
+        overlayStrokes = new LinkedList<OverlayStroke>();
     }
     
     public int getCellHeight() {
@@ -106,6 +116,19 @@ public class Grid extends JComponent {
     public void remove(GridElement ge) {
         super.remove(ge);
     }
+    
+    public void addOverlayStroke(int strokeWidth, Point positionOnGrid,
+                                 StrokeLocation locationOnCell) {
+        overlayStrokes.add(new OverlayStroke(strokeWidth,
+                                             positionOnGrid,
+                                             locationOnCell));
+        repaint();
+    }
+    
+    public void removeOverlayStrokes() {
+        overlayStrokes.clear();
+        repaint();
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -132,6 +155,38 @@ public class Grid extends JComponent {
             tempDrawingPos += cellWidth;
         }
         g2.drawLine(getWidth() - lineStroke, 0, getWidth() - lineStroke, getHeight());
+        for(OverlayStroke os : overlayStrokes) {
+            g2.setStroke(new BasicStroke(os.strokeWidth,
+                                         BasicStroke.CAP_ROUND,
+                                         BasicStroke.JOIN_ROUND));
+            switch(os.locationOnCell) {
+                    case TOP:
+                    g2.drawLine(cellWidth * os.positionOnGrid.x,
+                                cellHeight * os.positionOnGrid.y,
+                                cellWidth * (os.positionOnGrid.x + 1),
+                                cellHeight * os.positionOnGrid.y);
+                    break;
+                    case BOTTOM:
+                    g2.drawLine(cellWidth * os.positionOnGrid.x,
+                                cellHeight * (os.positionOnGrid.y + 1),
+                                cellWidth * (os.positionOnGrid.x + 1),
+                                cellHeight * (os.positionOnGrid.y + 1));
+                    break;
+                case LEFT:
+                    g2.drawLine(cellWidth * os.positionOnGrid.x,
+                                cellHeight * os.positionOnGrid.y,
+                                cellWidth * os.positionOnGrid.x,
+                                cellHeight * (os.positionOnGrid.y + 1));
+                    break;
+
+                case RIGHT:
+                    g2.drawLine(cellWidth * (os.positionOnGrid.x + 1),
+                                cellHeight * os.positionOnGrid.y,
+                                cellWidth * (os.positionOnGrid.x + 1),
+                                cellHeight * (os.positionOnGrid.y + 1));
+                    break;
+            }
+        }
     }
 
     private void layComponents() {
@@ -166,6 +221,22 @@ public class Grid extends JComponent {
         for(int i = 0; i < components.length; i++) {
             ((GridElement) components[i]).cancelAnimations();
         }
+    }
+    
+    private class OverlayStroke {
+        
+        int strokeWidth;
+        Point positionOnGrid;
+        StrokeLocation locationOnCell;
+
+        public OverlayStroke(int strokeWidth,
+                             Point positionOnGrid,
+                             StrokeLocation locationOnCell) {
+            this.strokeWidth = strokeWidth;
+            this.positionOnGrid = positionOnGrid;
+            this.locationOnCell = locationOnCell;
+        }
+
     }
 
 }

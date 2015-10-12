@@ -1,6 +1,12 @@
+This repository is unmaintained
+===============================
+
 See GraphDemo.java and GridDemo.java to learn how to use GAIL, it's really easy! :D. Both files are executable (they have a main function) and the repo has also the Netbeans project files.
 
+## Grid demo
 
-[Screenshot1](http://s16.postimage.org/t4feyqzj7/Pantallazo_4.png)
+![Grid demo](/gridDemo.png?raw=true)
 
-[Screenshot2](http://s15.postimage.org/imgoifdcp/Pantallazo.png)
+## Graph demo
+
+![Graph demo](/graphDemo.png?raw=true)
